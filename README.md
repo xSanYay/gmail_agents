@@ -27,7 +27,7 @@ context ( like subject etc)
 
 ### 1) Create env
 
-- Copy `.env.example` to `.env` and fill:
+- Copy `backend/.env.example` to `backend/.env` and fill:
 	- `GOOGLE_CLIENT_ID`
 	- `GOOGLE_CLIENT_SECRET`
 	- `GOOGLE_REDIRECT_URI` (defaults to your ngrok callback)

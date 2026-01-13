@@ -37,7 +37,8 @@ class Settings(BaseSettings):
     allowed_hosts: str = "localhost,127.0.0.1,mako-gorgeous-unicorn.ngrok-free.app"
     cors_allow_origins: str = "http://localhost:8000,http://127.0.0.1:8000"
 
-    frontend_dir: str = "../frontend"
+    # Path to frontend static files. If relative, it is resolved from the repo root.
+    frontend_dir: str = "frontend"
 
     @property
     def allowed_hosts_list(self) -> List[str]:

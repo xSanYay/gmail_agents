@@ -52,6 +52,16 @@ def health():
 
 
 # Serve frontend static files
-frontend_dir = (Path(__file__).parent / settings.frontend_dir).resolve()
+project_root = Path(__file__).resolve().parents[2]
+frontend_dir_setting = Path(settings.frontend_dir)
+frontend_dir = (
+    frontend_dir_setting
+    if frontend_dir_setting.is_absolute()
+    else (project_root / frontend_dir_setting).resolve()
+)
+
 if frontend_dir.exists():
     app.mount("/", StaticFiles(directory=str(frontend_dir), html=True), name="frontend")
+    logger.info("frontend mounted path=%s", str(frontend_dir))
+else:
+    logger.warning("frontend not mounted missing_path=%s", str(frontend_dir))
