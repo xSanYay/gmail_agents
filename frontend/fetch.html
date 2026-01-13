@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fetch emails</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>Fetch emails</h1>
+
+      <form id="filters" class="card">
+        <label>
+          From
+          <input name="from" placeholder="someone@example.com" />
+        </label>
+        <label>
+          Date (after)
+          <input name="date" placeholder="YYYY-MM-DD" />
+        </label>
+        <label>
+          Context (subject by default)
+          <input name="context" placeholder="invoice" />
+        </label>
+        <label>
+          Context field
+          <select name="context_field">
+            <option value="subject" selected>subject</option>
+            <option value="any">any</option>
+          </select>
+        </label>
+        <label>
+          Max results
+          <input name="max_results" type="number" value="10" min="1" max="50" />
+        </label>
+        <button type="submit">Fetch</button>
+      </form>
+
+      <section class="card">
+        <h2>Results</h2>
+        <pre id="status" class="muted"></pre>
+        <ul id="results" class="results"></ul>
+      </section>
+
+      <p><a class="link" href="/">Back</a></p>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
