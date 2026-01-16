@@ -19,13 +19,25 @@ router = APIRouter(tags=["auth"])
 
 
 @router.get("/auth/start")
-async def auth_start(settings: Settings = Depends(get_settings)):
+async def auth_start(
+    scope_type: str = Query("read"),
+    settings: Settings = Depends(get_settings)
+):
     if not settings.google_client_id or not settings.google_client_secret:
         logger.error("oauth_start google_oauth_not_configured")
         raise HTTPException(status_code=500, detail="Google OAuth not configured")
+    
+    # Map scope_type to actual Google scopes
+    scope_map = {
+        "read": "https://www.googleapis.com/auth/gmail.readonly",
+        "write": "https://www.googleapis.com/auth/gmail.send",
+        "read_write": "https://www.googleapis.com/auth/gmail.modify",
+    }
+    requested_scope = scope_map.get(scope_type, settings.google_scopes)
+    
     state = oauth.create_state(settings.oauth_state_secret)
-    url = oauth.build_authorization_url(state)
-    logger.info("oauth_start redirecting_to_google")
+    url = oauth.build_authorization_url(state, scope=requested_scope)
+    logger.info("oauth_start redirecting_to_google scope_type=%s", scope_type)
     return RedirectResponse(url=url, status_code=302)
 
 

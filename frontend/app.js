@@ -21,7 +21,8 @@ function qs(selector) {
 const connectBtn = qs("#connect");
 if (connectBtn) {
   connectBtn.addEventListener("click", () => {
-    window.location.href = "/auth/start";
+    const selectedScope = document.querySelector('input[name="scope"]:checked').value;
+    window.location.href = `/auth/start?scope_type=${selectedScope}`;
   });
 }
 

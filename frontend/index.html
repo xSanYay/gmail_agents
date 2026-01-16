@@ -10,6 +10,17 @@
     <main class="container">
       <h1>gmail_agents</h1>
       <p>Connect your Gmail account, then fetch messages.</p>
+      <div class="scope-selection">
+        <label>
+          <input type="radio" name="scope" value="read" checked> Read
+        </label>
+        <label>
+          <input type="radio" name="scope" value="write"> Write
+        </label>
+        <label>
+          <input type="radio" name="scope" value="read_write"> Read + Write
+        </label>
+      </div>
       <button id="connect">Connect Gmail</button>
       <p class="muted">OAuth callback: <code>/api/callback</code></p>
     </main>

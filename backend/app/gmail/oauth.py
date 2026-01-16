@@ -63,14 +63,14 @@ def verify_state(state: str, secret: str) -> bool:
     return now <= exp
 
 
-def build_authorization_url(state: str) -> str:
+def build_authorization_url(state: str, scope: Optional[str] = None) -> str:
     settings = get_settings()
 
     params = {
         "client_id": settings.google_client_id,
         "redirect_uri": settings.google_redirect_uri,
         "response_type": "code",
-        "scope": settings.google_scopes,
+        "scope": scope or settings.google_scopes,
         "access_type": "offline",
         "include_granted_scopes": "true",
         "state": state,
